@@ -4,7 +4,7 @@ import { log } from './logger.js';
 
 const dryRun = process.argv.includes('--dry-run');
 
-const required = ['LINKEDIN_ACCESS_TOKEN', 'LINKEDIN_PERSON_URN', 'GMAIL_USER', 'GMAIL_APP_PASSWORD', 'SUBSTACK_POST_EMAIL'];
+const required = ['LINKEDIN_ACCESS_TOKEN', 'LINKEDIN_PERSON_URN', 'SUBSTACK_SID'];
 const missing = required.filter((key) => !process.env[key]);
 
 if (missing.length > 0) {
@@ -15,6 +15,5 @@ if (missing.length > 0) {
 
 log.info('Excel Flow Social Media Scheduler starting...');
 log.info(`Person URN: ${process.env.LINKEDIN_PERSON_URN}`);
-log.info(`Gmail user: ${process.env.GMAIL_USER}`);
 
 startScheduler(dryRun);

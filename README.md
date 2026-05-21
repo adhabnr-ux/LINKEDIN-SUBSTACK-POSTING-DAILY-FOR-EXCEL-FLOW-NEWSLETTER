@@ -10,15 +10,14 @@ An automated Node.js system that posts your pre-written content to LinkedIn and 
 2. [File Structure](#file-structure)
 3. [Step-by-Step Setup](#step-by-step-setup)
 4. [Getting Your LinkedIn Token and Person URN](#getting-your-linkedin-token-and-person-urn)
-5. [Getting Your Substack Email-to-Post Address](#getting-your-substack-email-to-post-address)
-6. [Getting a Gmail App Password](#getting-a-gmail-app-password)
-7. [Running the Scheduler](#running-the-scheduler)
-8. [Deploying to Railway (free 24/7 hosting)](#deploying-to-railway)
-9. [Using the CLI](#using-the-cli)
-10. [Importing a Week of Content](#importing-a-week-of-content)
-11. [Supported Platforms and Post Types](#supported-platforms-and-post-types)
-12. [Rate Limits](#rate-limits)
-13. [Logs and Troubleshooting](#logs-and-troubleshooting)
+5. [Getting Your Substack Session Cookie](#getting-your-substack-session-cookie)
+6. [Running the Scheduler](#running-the-scheduler)
+7. [Deploying to Railway (free 24/7 hosting)](#deploying-to-railway)
+8. [Using the CLI](#using-the-cli)
+9. [Importing a Week of Content](#importing-a-week-of-content)
+10. [Supported Platforms and Post Types](#supported-platforms-and-post-types)
+11. [Rate Limits](#rate-limits)
+12. [Logs and Troubleshooting](#logs-and-troubleshooting)
 
 ---
 
@@ -28,10 +27,12 @@ An automated Node.js system that posts your pre-written content to LinkedIn and 
 - Every 5 minutes, checks for posts whose scheduled time has passed
 - Posts up to 3 per check to avoid rate limits
 - Posts to LinkedIn (regular posts, polls, group posts)
-- Posts to Substack Notes via Gmail → secret email address
+- Posts to Substack Notes via Substack's internal API
 - After each LinkedIn post, waits 30 seconds and posts a first comment (e.g., your Substack link)
 - Logs everything to console and `logs/activity.log`
 - Has a dry-run mode (`--dry-run`) so you can test without actually posting
+
+> **Note on Substack:** Substack discontinued its email-to-post feature. There is no official publishing API, so this system uses the same internal endpoint the Substack web app calls when you publish a Note. It authenticates with your logged-in session cookie. This works reliably but is unofficial — see [Getting Your Substack Session Cookie](#getting-your-substack-session-cookie) for the caveats.
 
 ---
 
@@ -42,11 +43,12 @@ excel-flow-scheduler/
   index.js          ← entry point, starts the scheduler
   scheduler.js      ← cron logic and post dispatcher
   linkedin.js       ← LinkedIn API calls
-  substack.js       ← Substack email-to-post
+  substack.js       ← Substack Notes via internal API
   cli.js            ← command-line tool for managing the queue
   db.js             ← SQLite setup and query helpers
   logger.js         ← logs to console + logs/activity.log
   groups.json       ← LinkedIn group URNs keyed by name
+  sample-week.json  ← example week of content for import
   logs/
     activity.log    ← auto-created on first run
   .env              ← your credentials (never commit this)
@@ -73,11 +75,11 @@ npm install
 cp .env.example .env
 ```
 
-Then open `.env` and fill in all five values. See the sections below for how to get each one.
+Then open `.env` and fill in all three values. See the sections below for how to get each one.
 
 ### 3. Test with dry-run
 
-Before putting in real credentials, you can add a post and do a dry run:
+Before putting in real credentials, you can import the sample week and do a dry run:
 
 ```bash
 node cli.js import-json sample-week.json
@@ -167,48 +169,38 @@ LINKEDIN_PERSON_URN=urn:li:person:AbCdEfGhIj
 
 ---
 
-## Getting Your Substack Email-to-Post Address
+## Getting Your Substack Session Cookie
 
-1. Log in to your Substack dashboard at [https://substack.com/](https://substack.com/)
-2. Click **Settings** in the left sidebar
-3. Scroll down to the section called **Email posting**
-4. You will see a secret email address that looks like: `abc123def@post.substack.com`
-5. Copy that address into your `.env`:
+Substack removed the email-to-post feature, and it has no official publishing API. To post Notes automatically, the scheduler reuses your logged-in browser session by sending your `substack.sid` cookie with each request.
 
-```
-SUBSTACK_POST_EMAIL=abc123def@post.substack.com
-```
+### How to copy your `substack.sid` cookie
 
-Any email sent to this address from a Gmail you authorize will be published as a Substack Note. The subject line becomes the note's opening, and the body is the full text.
+**Using Chrome or Edge:**
 
-> **Note**: Substack Notes do not support images via email-to-post. Plain text only.
-
----
-
-## Getting a Gmail App Password
-
-You cannot use your regular Gmail password for SMTP. Google requires an App Password, which is a special 16-character code.
-
-**Requirement**: 2-Step Verification must be enabled on your Google account.
-
-### Steps:
-
-1. Go to your Google Account: [https://myaccount.google.com/](https://myaccount.google.com/)
-2. Click **Security** in the left sidebar
-3. Scroll to **How you sign in to Google**
-4. Click **2-Step Verification** and make sure it is enabled
-5. Once 2FA is on, go back to Security and scroll to **App passwords**
-   - (Direct link: [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords))
-6. In the **Select app** field, type a name like `Excel Flow`
-7. Click **Create**
-8. Google shows you a 16-character password like `abcd efgh ijkl mnop`
-9. Copy it — **you will not see it again**
-10. Remove the spaces and put it in `.env`:
+1. Log in to [https://substack.com/](https://substack.com/) in your browser
+2. Press **F12** to open Developer Tools
+3. Go to the **Application** tab (Chrome) or **Storage** tab (Edge/Firefox)
+4. In the left sidebar, expand **Cookies** and click **https://substack.com**
+5. Find the row named **`substack.sid`**
+6. Double-click its **Value** and copy the entire string (it is long)
+7. Paste it into `.env`:
 
 ```
-GMAIL_USER=you@gmail.com
-GMAIL_APP_PASSWORD=abcdefghijklmnop
+SUBSTACK_SID=s%3A....the-long-value....
 ```
+
+**Using Firefox:**
+
+1. Log in to substack.com
+2. Press **F12** → **Storage** tab → **Cookies** → **https://substack.com**
+3. Find `substack.sid`, copy its value, paste into `.env`
+
+### Important caveats
+
+- This is an **unofficial** method. It uses the same internal endpoint the Substack web app calls — not a documented, supported API. It works reliably today but could change without notice.
+- The `substack.sid` cookie **expires** (roughly every 30 days, or when you log out everywhere). When it expires, the scheduler logs: *"Substack session expired — log in at substack.com, copy a fresh substack.sid cookie value, and update SUBSTACK_SID in .env"*. Just repeat the steps above and restart.
+- Do **not** log out of Substack in that browser session — logging out invalidates the cookie.
+- Keep this cookie secret. Anyone with it can post as you. It lives only in `.env`, which is gitignored.
 
 ---
 
@@ -272,9 +264,7 @@ In the Railway dashboard ([https://railway.app/](https://railway.app/)), go to y
 ```
 LINKEDIN_ACCESS_TOKEN=...
 LINKEDIN_PERSON_URN=...
-GMAIL_USER=...
-GMAIL_APP_PASSWORD=...
-SUBSTACK_POST_EMAIL=...
+SUBSTACK_SID=...
 TZ=America/Denver
 ```
 
@@ -302,9 +292,7 @@ Railway's filesystem is ephemeral by default — the database will reset on each
 2. Mount it at `/app/data`
 3. Update `db.js` to use `/app/data/content_queue.db` as the path when `process.env.RAILWAY_VOLUME_MOUNT_PATH` is set
 
-Or, for production, migrate to Supabase PostgreSQL (Railway has a hosted Postgres add-on that persists forever).
-
-> **Simplest solution**: Import your week's content, deploy, and don't redeploy mid-week. On the next content cycle, export any pending posts, redeploy, and re-import.
+> **Simplest solution**: Import your week's content, deploy, and don't redeploy mid-week. On the next content cycle, redeploy and re-import.
 
 ---
 
@@ -315,8 +303,6 @@ Run any CLI command with:
 ```bash
 node cli.js <command>
 ```
-
-Or add an alias in `package.json` scripts and use `npm run cli -- <command>`.
 
 ### `add-post` — add a single post interactively
 
@@ -396,13 +382,15 @@ Create a JSON file (e.g., `week1.json`) with this structure:
   {
     "scheduled_at_mst": "2026-05-27 08:00",
     "platform": "substack_note",
-    "content": "Most people use SUM wrong.\n\nThey sum columns when they should sum ranges.\nThey hardcode ranges when they should use dynamic arrays.\nThey recalculate manually when Excel does it automatically.\n\nNew post dropping Thursday — subscribe so you don't miss it.",
+    "content": "Most people use SUM wrong.\n\nThey sum columns when they should sum ranges.\nThey hardcode ranges when they should use dynamic arrays.\n\nNew post dropping Thursday — subscribe so you don't miss it.",
     "first_comment": null,
     "poll_options": null,
     "group_name": null
   }
 ]
 ```
+
+For `substack_note` posts, leave `first_comment`, `poll_options`, and `group_name` as `null` — Substack Notes are a single block of text. Each line of `content` becomes its own paragraph in the published Note.
 
 Then import it:
 
@@ -422,7 +410,7 @@ Verify everything looks right, then start the scheduler.
 | LinkedIn regular post | `linkedin_post` | Supports first comment |
 | LinkedIn poll | `linkedin_poll` | 2–4 options, `poll_options` must be a JSON array |
 | LinkedIn group post | `linkedin_group` | `group_name` must match a key in `groups.json` |
-| Substack Note | `substack_note` | Sent via Gmail → secret email address |
+| Substack Note | `substack_note` | Posted via Substack's internal API using `SUBSTACK_SID` |
 
 ### Adding a LinkedIn group
 
@@ -445,7 +433,7 @@ To find a group URN: go to the group's LinkedIn page, the URL will contain the g
 
 - **LinkedIn**: ~150 posts/day on free tier. The scheduler adds a 60-second delay between LinkedIn posts in the same batch.
 - **LinkedIn comments**: Posted 30 seconds after the main post.
-- **Substack**: 30-second delay between Substack notes in the same batch.
+- **Substack**: 30-second delay between Substack notes in the same batch. Substack's internal API is informally rate-limited; avoid posting more than a few Notes per minute.
 - The scheduler processes a maximum of 3 posts per 5-minute check.
 
 ---
@@ -471,8 +459,8 @@ You have posted too many times in a short window. Wait a few hours and use `node
 **`Group "X" not found in groups.json`**
 The `group_name` in your post does not match any key in `groups.json`. Edit `groups.json` to add it.
 
-**Gmail authentication errors**
-Make sure you are using an App Password (16 chars), not your regular Gmail password. 2-Step Verification must be enabled.
+**`Substack session expired`**
+Your `substack.sid` cookie is no longer valid (it expires roughly monthly, or when you log out). Log in to substack.com again, copy a fresh `substack.sid` cookie value, update `SUBSTACK_SID` in `.env`, and restart. See [Getting Your Substack Session Cookie](#getting-your-substack-session-cookie).
 
 **Substack note not appearing**
-Check that `SUBSTACK_POST_EMAIL` is exactly the secret address from your Substack Settings. Also check your Gmail Sent folder to confirm the email was sent.
+Confirm `SUBSTACK_SID` is the full cookie value with no extra spaces. Check `logs/activity.log` for the API response. If you recently logged out of Substack in that browser, the cookie is dead — get a fresh one.
