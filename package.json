@@ -1,0 +1,23 @@
+{
+  "name": "excel-flow-scheduler",
+  "version": "1.0.0",
+  "description": "Automated social media posting system for Excel Flow newsletter",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dry-run": "node index.js --dry-run",
+    "cli": "node cli.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.4.3",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.5",
+    "node-cron": "^3.0.3",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^8.0.7"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
