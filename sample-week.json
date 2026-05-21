@@ -3,7 +3,7 @@
     "scheduled_at_mst": "2026-05-25 08:30",
     "platform": "linkedin_post",
     "content": "Excel tip of the week: XLOOKUP vs VLOOKUP — here's why you should switch today.\n\n1. Handles both left and right lookups\n2. Returns arrays, not just single cells\n3. Has a built-in not-found value (no more IFERROR hacks)\n\nWhich one are you still using?",
-    "first_comment": "Full breakdown in this week's Excel Flow newsletter → https://excelflow.substack.com",
+    "first_comment": "Full breakdown in this week's Excel Flow newsletter → https://rileystream.substack.com",
     "poll_options": null,
     "group_name": null
   },
@@ -27,7 +27,7 @@
     "scheduled_at_mst": "2026-05-28 08:30",
     "platform": "linkedin_post",
     "content": "3 Excel shortcuts I use every single day:\n\nCtrl+Shift+L — toggle filters\nCtrl+T — turn range into a Table\nAlt+= — AutoSum the selection\n\nSave this post. Your future self will thank you.\n\n#Excel #ExcelTips #Productivity",
-    "first_comment": "More shortcuts like this every week in Excel Flow → https://excelflow.substack.com",
+    "first_comment": "More shortcuts like this every week in Excel Flow → https://rileystream.substack.com",
     "poll_options": null,
     "group_name": null
   },

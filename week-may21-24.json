@@ -1,0 +1,186 @@
+[
+  {
+    "scheduled_at_mst": "2026-05-21 07:30",
+    "platform": "linkedin_poll",
+    "content": "What's your honest relationship with Excel macros and VBA?\n\nDrop your answer and tell me if learning VBA in 2026 is still worth the time.",
+    "first_comment": "New Excel Flow edition just dropped — Alan Murray (Computergaga, 300K+ YouTube) on getting \"ridiculously good at the boring stuff.\" 25+ years training Excel pros.\nhttps://rileystream.substack.com",
+    "poll_options": ["Use them, changed how I work", "Know they exist, never tried", "Tried once, broke something", "Use Power Query instead"],
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-21 12:00",
+    "platform": "linkedin_poll",
+    "content": "SUMIF vs SUMIFS — what do you reach for first?\n\nDrop the function that's saved you most on deadlines.",
+    "first_comment": null,
+    "poll_options": ["SUMIF — habit", "SUMIFS for single conditions", "Just write a pivot table", "What's the difference?"],
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-21 12:30",
+    "platform": "linkedin_poll",
+    "content": "On deadline day, do you:\n\nA) Power through formulas\nB) Copy-paste-manually-fix because you know it'll work\n\nDrop the function that's saved you most on deadlines.",
+    "first_comment": null,
+    "poll_options": ["Power through formulas", "Copy-paste and fix manually"],
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-21 18:00",
+    "platform": "substack_note",
+    "content": "Most overrated Excel \"best practice\"?\n\nA) Color-coding every input cell\nB) Hiding columns instead of organizing data\nC) Building everything as a single mega-formula\nD) Manual formatting before logic works\n\nDrop yours and the worst \"best practice\" you've seen forced on a team.",
+    "first_comment": null,
+    "poll_options": null,
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-21 18:30",
+    "platform": "substack_note",
+    "content": "Your dynamic arrays spill into populated cells and break. Here's how to fix it permanently.\n\nThe fix: Use the @ operator to force a single-cell result when you don't want spill behavior. Or use the # operator to reference the entire spilled range.\n\n=FILTER(SalesData,SalesData[Region]=\"West\")#\n\nThe # at the end tells the next formula \"use the whole spilled array.\" Now your downstream formulas update automatically when filter results change.\n\nDrop the dynamic array problem that has you stuck right now.",
+    "first_comment": null,
+    "poll_options": null,
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-21 19:00",
+    "platform": "substack_note",
+    "content": "Jeff Lenning is a Microsoft MVP and founder of Excel University. He's been teaching Excel for over 20 years.\n\nHis Q&A in Excel Flow (Edition #18) was the first time I heard a top creator say plainly: Power Query is the single most underused tool in Excel.\n\nThree more creators have now said the same thing in subsequent editions. He was right first.\n\nIf you're a CPA or accountant especially — his work is essential. Follow him.",
+    "first_comment": null,
+    "poll_options": null,
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-22 07:30",
+    "platform": "linkedin_poll",
+    "content": "End-of-week check. What best describes your Excel week?\n\nDrop the one Excel thing from this week you're either proud of or still recovering from.",
+    "first_comment": "Bonus — Mike Girvin's \"four languages of modern Excel\" framework. Maps which tool to use when (PivotTables, formulas, DAX, M Code).\nhttps://rileystream.substack.com (Edition #28)\nFree download included.",
+    "poll_options": ["Built something I'm proud of", "Fixed mess, got no credit", "Learned something unexpected", "Opened an illegal-looking file"],
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-22 12:00",
+    "platform": "linkedin_poll",
+    "content": "When you leave work today, is your Excel:\n\nA) Cleaner than Monday\nB) More complicated with tabs you'll have to explain to future-you\n\nDrop the Excel tip you'd leave this group with for the weekend.",
+    "first_comment": null,
+    "poll_options": ["Cleaner than Monday", "More complicated than Monday"],
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-22 19:00",
+    "platform": "substack_note",
+    "content": "End-of-week honest check. How did your Excel week go?\n\nA) Built something I'm actually proud of\nB) Fixed someone else's mess and got no credit\nC) Learned something I didn't expect to need\nD) Opened a file Friday afternoon that should not legally exist\n\nDrop the one Excel moment that defined your week.",
+    "first_comment": null,
+    "poll_options": null,
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-22 19:30",
+    "platform": "substack_note",
+    "content": "You're hardcoding tax rates and percentages directly into formulas. This is the #1 cause of Excel errors per two separate academic studies.\n\nThe fix: Pull every input into a named cell.\n\nBad: =Revenue * 0.21\nGood: Put 0.21 in cell B2, name it TaxRate, then write =Revenue * TaxRate\n\nWhen the tax rate changes (and it will), you update ONE cell instead of hunting through 47 formulas.\n\nDrop the hardcoded number you should have separated months ago.",
+    "first_comment": null,
+    "poll_options": null,
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-22 20:00",
+    "platform": "substack_note",
+    "content": "Luke Barousse runs a 400K+ subscriber YouTube channel on data analytics and SQL/Python/Excel for analysts.\n\nHis Q&A with me (Edition #23) had the bluntest take on the AI debate I've heard: Excel + SQL still wins in 2026, full stop.\n\nIf you're in data analytics and stuck choosing what to learn next — go watch his data science roadmap series. Free, sharp, and based on actual job market data.",
+    "first_comment": null,
+    "poll_options": null,
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-23 09:00",
+    "platform": "linkedin_poll",
+    "content": "Your Excel skill goal for the rest of 2026?\n\nDrop one specific thing you're doing THIS WEEKEND toward that goal.",
+    "first_comment": null,
+    "poll_options": ["Finally learn Power Query", "Dynamic arrays + LAMBDA", "Build a dashboard I'm proud of", "Get fastest on my team"],
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-23 11:00",
+    "platform": "linkedin_poll",
+    "content": "Slowest Excel file you ever inherited — what was the cause?\n\nDrop the slowest file you've ever had to fix.",
+    "first_comment": null,
+    "poll_options": ["Volatile functions like OFFSET", "Conditional formatting cols", "External links to dead files", "Never figured it out"],
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-23 13:00",
+    "platform": "linkedin_poll",
+    "content": "Learning Excel — you learn best from:\n\nA) Structured courses in order\nB) Real problems forcing you to figure it out\n\nShare the single best Excel resource you've ever found.",
+    "first_comment": null,
+    "poll_options": ["Structured courses in order", "Real problems to figure out"],
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-23 16:30",
+    "platform": "substack_note",
+    "content": "What's your Excel goal for the rest of 2026?\n\nA) Finally learn Power Query properly\nB) Get comfortable with dynamic arrays + LAMBDA\nC) Build a dashboard I'm proud of\nD) Get fast enough to be the quickest on my team\n\nDrop one specific thing you're doing THIS WEEKEND toward that goal.",
+    "first_comment": null,
+    "poll_options": null,
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-23 17:00",
+    "platform": "substack_note",
+    "content": "Your Excel file got slow and you don't know why. Here's the diagnosis order.\n\nPress F9. If recalculation takes >2 seconds → you have volatile functions (NOW, TODAY, OFFSET, INDIRECT) doing too much work.\n\nCheck Format → Conditional Formatting → Manage Rules. Multiple rules on entire columns = death.\n\nCheck Name Manager (Ctrl+F3). Broken named ranges silently destroy performance.\n\nFix one at a time. Save between each. Most slow files have all three problems.\n\nDrop the slowest Excel file you've ever inherited.",
+    "first_comment": null,
+    "poll_options": null,
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-23 17:30",
+    "platform": "substack_note",
+    "content": "Chris Reilly has taught 91,000+ students financial modeling. His honest takes on private equity work and FP&A career paths are the kind of unfiltered content that's rare on LinkedIn.\n\nHis line from our upcoming Q&A (Edition #30, Monday May 25): \"BUSINESS knowledge, not Excel knowledge.\"\n\nIf you do any modeling at all, his work is essential reading.",
+    "first_comment": null,
+    "poll_options": null,
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-24 10:00",
+    "platform": "linkedin_poll",
+    "content": "New week. Your Excel intention?\n\nSay it out loud below. Monday's accountability check is coming.",
+    "first_comment": null,
+    "poll_options": ["Building something specific", "Tackling a skill I've avoided", "Getting faster at what I know", "Cleaning up ignored files"],
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-24 12:00",
+    "platform": "linkedin_poll",
+    "content": "Flash Fill — be honest:\n\nDrop your most painful manual data cleanup that Flash Fill could solve.",
+    "first_comment": null,
+    "poll_options": ["I use it daily", "I forget it exists", "What's Flash Fill?", "Tried it once, gave up"],
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-24 18:00",
+    "platform": "linkedin_poll",
+    "content": "By end of year, are you more focused on:\n\nA) Knowing more — deeper skills, more functions\nB) Doing more — shipping better work faster with what you know\n\nDrop the one Excel commitment for the coming week.",
+    "first_comment": null,
+    "poll_options": ["Knowing more — deeper skills", "Doing more — shipping faster"],
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-24 19:30",
+    "platform": "substack_note",
+    "content": "What's standing between you and the Excel skill you want most?\n\nA) Not enough time to practice\nB) No real project to apply it to\nC) The tutorials I find are too basic or too advanced\nD) Honestly? Just procrastination\n\nDrop yours plus the one thing you're committing to do about it this week.",
+    "first_comment": null,
+    "poll_options": null,
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-24 20:00",
+    "platform": "substack_note",
+    "content": "You're using SUMIF (singular). SUMIFS (plural) does more in one step.\n\nThe fix:\nOld: =SUMIF(A:A,\"West\",B:B) with a helper column for month\nNew: =SUMIFS(B:B, A:A, \"West\", C:C, \"January\")\n\nSUMIFS takes unlimited condition pairs. Same with COUNTIFS, AVERAGEIFS, MINIFS, MAXIFS. Drop the \"S\" from your old habits.\n\nDrop the most complex SUMIFS condition you've ever needed.",
+    "first_comment": null,
+    "poll_options": null,
+    "group_name": null
+  },
+  {
+    "scheduled_at_mst": "2026-05-24 20:30",
+    "platform": "substack_note",
+    "content": "Alan Murray at Computergaga has 300K+ YouTube subs and 25+ years teaching Excel.\n\nHis Q&A in Excel Flow (Edition #29, this Thursday May 21) hits hard on a pattern I see constantly: \"Get ridiculously good at the boring stuff.\"\n\nThe flashy features get the views. The boring fundamentals build the careers.\n\nFollow him for the sharpest no-nonsense Excel content on YouTube.",
+    "first_comment": null,
+    "poll_options": null,
+    "group_name": null
+  }
+]

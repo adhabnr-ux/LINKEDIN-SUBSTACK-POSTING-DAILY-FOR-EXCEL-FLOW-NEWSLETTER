@@ -1,0 +1,10 @@
+[
+  {
+    "scheduled_at_mst": "2026-05-21 10:00",
+    "platform": "substack_note",
+    "content": "Your dynamic arrays spill into populated cells and break. Here's how to fix it permanently.\n\nThe fix: Use the @ operator to force a single-cell result when you don't want spill behavior. Or use the # operator to reference the entire spilled range.\n\n=FILTER(SalesData,SalesData[Region]=\"West\")#\n\nThe # at the end tells the next formula \"use the whole spilled array.\" Now your downstream formulas update automatically when filter results change.\n\nDrop the dynamic array problem that has you stuck right now.",
+    "first_comment": null,
+    "poll_options": null,
+    "group_name": null
+  }
+]
