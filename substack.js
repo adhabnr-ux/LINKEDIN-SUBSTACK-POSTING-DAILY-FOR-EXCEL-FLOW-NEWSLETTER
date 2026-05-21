@@ -52,8 +52,10 @@ export async function postSubstackNote(post) {
   });
 
   if (res.status === 401 || res.status === 403) {
+    const body = await res.text().catch(() => '');
+    log.info(`Substack auth failure (${res.status}): ${body.slice(0, 200)}`);
     throw new Error(
-      'Substack session expired — log in at substack.com, copy a fresh substack.sid cookie value, and update SUBSTACK_SID in .env'
+      `Substack ${res.status} — session likely expired. Log in at substack.com, copy a fresh substack.sid cookie, update SUBSTACK_SID in .env`
     );
   }
 
