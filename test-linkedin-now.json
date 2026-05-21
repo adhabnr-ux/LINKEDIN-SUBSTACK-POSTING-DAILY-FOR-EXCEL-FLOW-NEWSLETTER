@@ -1,0 +1,10 @@
+[
+  {
+    "scheduled_at_mst": "2026-05-21 01:00",
+    "platform": "linkedin_poll",
+    "content": "What's your honest relationship with Excel macros and VBA?\n\nDrop your answer and tell me if learning VBA in 2026 is still worth the time.",
+    "first_comment": "New Excel Flow edition just dropped — Alan Murray (Computergaga, 300K+ YouTube) on getting \"ridiculously good at the boring stuff.\" 25+ years training Excel pros.\nhttps://rileystream.substack.com",
+    "poll_options": ["Use them, changed how I work", "Know they exist, never tried", "Tried once, broke something", "Use Power Query instead"],
+    "group_name": null
+  }
+]
