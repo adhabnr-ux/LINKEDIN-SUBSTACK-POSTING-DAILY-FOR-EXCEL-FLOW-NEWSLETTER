@@ -43,7 +43,7 @@ export async function postSubstackNote(post) {
   const res = await fetch(NOTES_ENDPOINT, {
     method: 'POST',
     headers: {
-      Cookie: `substack.sid=${sid}`,
+      Cookie: `substack.sid=${decodeURIComponent(sid)}`,
       Accept: 'application/json',
       'Content-Type': 'application/json',
       'User-Agent': USER_AGENT,
