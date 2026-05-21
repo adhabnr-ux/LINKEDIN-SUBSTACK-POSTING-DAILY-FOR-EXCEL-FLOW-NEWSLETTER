@@ -25,6 +25,14 @@ function buildBodyJson(content) {
   };
 }
 
+function buildCookieHeader(sid) {
+  const parts = [`substack.sid=${decodeURIComponent(sid)}`];
+  if (process.env.CF_CLEARANCE) {
+    parts.push(`cf_clearance=${process.env.CF_CLEARANCE}`);
+  }
+  return parts.join('; ');
+}
+
 export async function postSubstackNote(post) {
   const sid = process.env.SUBSTACK_SID;
   if (!sid) {
@@ -43,19 +51,22 @@ export async function postSubstackNote(post) {
   const res = await fetch(NOTES_ENDPOINT, {
     method: 'POST',
     headers: {
-      Cookie: `substack.sid=${decodeURIComponent(sid)}`,
-      Accept: 'application/json',
+      Cookie: buildCookieHeader(sid),
+      Accept: 'application/json, text/plain, */*',
       'Content-Type': 'application/json',
       'User-Agent': USER_AGENT,
+      Origin: 'https://substack.com',
+      Referer: 'https://substack.com/',
+      'Accept-Language': 'en-US,en;q=0.9',
     },
     body: JSON.stringify(body),
   });
 
   if (res.status === 401 || res.status === 403) {
-    const body = await res.text().catch(() => '');
-    log.info(`Substack auth failure (${res.status}): ${body.slice(0, 200)}`);
+    const errBody = await res.text().catch(() => '');
+    log.info(`Substack auth failure (${res.status}): ${errBody.slice(0, 200)}`);
     throw new Error(
-      `Substack ${res.status} — session likely expired. Log in at substack.com, copy a fresh substack.sid cookie, update SUBSTACK_SID in .env`
+      `Substack ${res.status} — check that SUBSTACK_SID and CF_CLEARANCE in .env are fresh (copy both from DevTools → Application → Cookies → https://substack.com)`
     );
   }
 
