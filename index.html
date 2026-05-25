@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover" />
+<title>Stick Brawler</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="game-root">
+    <canvas id="game"></canvas>
+
+    <div id="hud">
+      <div class="bar-group">
+        <div class="label">HP</div>
+        <div class="bar"><div id="hp-fill" class="fill hp"></div></div>
+      </div>
+      <div class="bar-group">
+        <div class="label">STA</div>
+        <div class="bar"><div id="stam-fill" class="fill stam"></div></div>
+      </div>
+      <div class="stats">
+        <div>Wave <span id="wave">1</span></div>
+        <div>Score <span id="score">0</span></div>
+      </div>
+    </div>
+
+    <div id="touch-controls">
+      <div class="pad-left">
+        <button class="btn dir" data-key="ArrowLeft">&#9664;</button>
+        <button class="btn dir" data-key="ArrowRight">&#9654;</button>
+      </div>
+      <div class="pad-right">
+        <button class="btn act jump" data-key="ArrowUp">JUMP</button>
+        <button class="btn act punch" data-key="KeyJ">PUNCH</button>
+        <button class="btn act kick" data-key="KeyK">KICK</button>
+        <button class="btn act block" data-key="KeyL">BLOCK</button>
+      </div>
+    </div>
+
+    <div id="overlay" class="active">
+      <div class="card">
+        <h1>STICK BRAWLER</h1>
+        <p class="tag">Wave-based stickman fighter</p>
+        <div class="controls-doc">
+          <div><b>A / D</b> or <b>&#9664; &#9654;</b> &mdash; move</div>
+          <div><b>W</b> or <b>&#9650;</b> &mdash; jump</div>
+          <div><b>J</b> &mdash; punch &nbsp; <b>K</b> &mdash; kick</div>
+          <div><b>L</b> &mdash; block &nbsp; <b>Shift</b> &mdash; dash</div>
+        </div>
+        <button id="start-btn">START</button>
+        <p class="hint">Survive waves. Boss every 5 waves. Grab pickups.</p>
+      </div>
+    </div>
+
+    <div id="message"></div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
